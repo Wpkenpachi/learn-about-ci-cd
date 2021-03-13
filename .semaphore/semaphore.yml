@@ -1,6 +1,6 @@
 version: v1.0
 
-name: learn About Ci/Cd Repository
+name: Learn About Ci/Cd Repository
 
 agent:
   machine:
@@ -14,7 +14,7 @@ blocks:
         - name: NODE_ENV
           value: test
         - name: PORT
-          value: 8181
+          value: "8181"
         - name: CI
           value: "true"
 
