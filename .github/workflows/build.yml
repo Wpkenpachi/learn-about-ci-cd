@@ -1,0 +1,17 @@
+name: DockerCompose Actions Workflow
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build Docker Images
+        run: docker-compose up -d
+      - name: ShowContainers
+        run: docker ps
+      - name: Running Tests
+        run: docker-compose exec -T server sh -c "npm test"
