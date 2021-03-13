@@ -1,6 +1,6 @@
 version: v1.0
 
-name: Javascript Client and Api Server
+name: Learn About Ci/Cd Repository
 
 agent:
   machine:
@@ -14,14 +14,14 @@ blocks:
         - name: NODE_ENV
           value: test
         - name: PORT
-          value: 8181
+          value: "8181"
         - name: CI
           value: "true"
 
       prologue:
         commands:
           - checkout
-          - nvm use
+          - nvm use v14.16.0
           - node --version
           - npm --version
 
@@ -50,7 +50,7 @@ blocks:
       prologue:
         commands:
           - checkout
-          - nvm use
+          - nvm use v14.16.0
           - node --version
           - npm --version
       jobs:
