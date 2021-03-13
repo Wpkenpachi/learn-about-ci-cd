@@ -15,4 +15,4 @@ jobs:
       - name: Build Docker Images
         run: docker-compose up -d
       - name: TestServer
-        run: curl localhost:8181
+        run: docker exec -it server-ci-cd sh -c "npm test"
