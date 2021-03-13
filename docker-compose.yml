@@ -15,28 +15,3 @@ services:
     env_file:
       - .env
     entrypoint: npm start
-    networks:
-      - server-nw
-
-  # Client Api
-  client:
-    image: cd-ci-client
-    container_name: client-ci-cd
-    depends_on:
-      - server
-    build:
-      context: client/
-      dockerfile: Dockerfile
-    ports:
-      - "${CLIENT_PORT}:${CLIENT_PORT}"
-    expose:
-      - "${CLIENT_PORT}"
-    env_file:
-      - .env
-    entrypoint: tail -f /dev/null
-    networks:
-      - server-nw
-
-networks:
-  server-nw:
-    driver: bridge
