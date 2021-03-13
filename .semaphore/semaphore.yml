@@ -30,10 +30,10 @@ blocks:
             - echo $DOCKER_PASSWORD | docker login --username "$DOCKER_USERNAME" --password-stdin
             - docker-compose build
             - docker images
-            - docker tag trying-cd-ci_server "$DOCKER_USERNAME"/trying-cd-ci_server:latest
-            - docker tag trying-cd-ci_client "$DOCKER_USERNAME"/trying-cd-ci_client:latest
-            - docker push trying-cd-ci_server "$DOCKER_USERNAME"/ci_server
-            - docker push trying-cd-ci_client "$DOCKER_USERNAME"/trying-cd-ci_client
+            - docker tag learn-about-cd-ci_server "$DOCKER_USERNAME"/learn-about-cd-ci_server:latest
+            - docker tag learn-about-cd-ci_client "$DOCKER_USERNAME"/learn-about-cd-ci_client:latest
+            - docker push learn-about-cd-ci_server "$DOCKER_USERNAME"/learn-about-cd-ci_server
+            - docker push learn-about-cd-ci_client "$DOCKER_USERNAME"/learn-about-cd-ci_client
             - docker images
 
   - name: Run and Test Docker images
@@ -44,8 +44,8 @@ blocks:
         commands:
           - echo $DOCKER_PASSWORD | docker login --username "$DOCKER_USERNAME" --password-stdin
           - checkout
-          - docker pull "$DOCKER_USERNAME"/trying-cd-ci_server:latest
-          - docker pull "$DOCKER_USERNAME"/trying-cd-ci_client:latest
+          - docker pull "$DOCKER_USERNAME"/learn-about-cd-ci__server:latest
+          - docker pull "$DOCKER_USERNAME"/learn-about-cd-ci__client:latest
           - docker-compose up -d
       jobs:
         - name: Check Running images
