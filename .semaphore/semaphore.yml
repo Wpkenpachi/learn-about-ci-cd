@@ -30,8 +30,8 @@ blocks:
             - echo $DOCKER_PASSWORD | docker login --username "$DOCKER_USERNAME" --password-stdin
             - docker-compose build
             - docker images
-            - docker tag learn-about-cd-ci_server "$DOCKER_USERNAME"/learn-about-cd-ci_server:latest
-            - docker tag learn-about-cd-ci_client "$DOCKER_USERNAME"/learn-about-cd-ci_client:latest
+            - docker tag learn-about-cd-ci_server "$DOCKER_USERNAME"/learn-about-cd-ci_server
+            - docker tag learn-about-cd-ci_client "$DOCKER_USERNAME"/learn-about-cd-ci_client
             - docker push learn-about-cd-ci_server "$DOCKER_USERNAME"/learn-about-cd-ci_server
             - docker push learn-about-cd-ci_client "$DOCKER_USERNAME"/learn-about-cd-ci_client
             - docker images
@@ -44,8 +44,8 @@ blocks:
         commands:
           - echo $DOCKER_PASSWORD | docker login --username "$DOCKER_USERNAME" --password-stdin
           - checkout
-          - docker pull "$DOCKER_USERNAME"/learn-about-cd-ci__server:latest
-          - docker pull "$DOCKER_USERNAME"/learn-about-cd-ci__client:latest
+          - docker pull "$DOCKER_USERNAME"/learn-about-cd-ci__server
+          - docker pull "$DOCKER_USERNAME"/learn-about-cd-ci__client
           - docker-compose up -d
       jobs:
         - name: Check Running images
