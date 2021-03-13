@@ -16,5 +16,8 @@ jobs:
         run: docker-compose up -d
       - name: ShowContainers
         run: docker ps
-      - name: TestServer
+  test:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Run Tests
         run: docker exec -it server-ci-cd sh -c "npm test"
