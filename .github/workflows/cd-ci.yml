@@ -17,4 +17,4 @@ jobs:
       - name: ShowContainers
         run: docker ps
       - name: Running Tests
-        run: export COMPOSE_INTERACTIVE_NO_CLI=1 && docker-compose exec server sh -c "npm test"
+        run: docker-compose exec -T server sh -c "npm test"
