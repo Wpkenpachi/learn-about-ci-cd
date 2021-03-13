@@ -29,8 +29,8 @@ blocks:
             - checkout
             - echo $DOCKER_PASSWORD | docker login --username "$DOCKER_USERNAME" --password-stdin
             - docker-compose build
-            - docker tag trying-cd-ci_server:latest "$DOCKER_USERNAME"/trying-cd-ci_server
-            - docker tag trying-cd-ci_client:latest "$DOCKER_USERNAME"/trying-cd-ci_client
+            - docker tag trying-cd-ci_server:latest "$DOCKER_USERNAME"/trying-cd-ci_server:latest
+            - docker tag trying-cd-ci_client:latest "$DOCKER_USERNAME"/trying-cd-ci_client:latest
             - docker push ci_server:latest "$DOCKER_USERNAME"/ci_server
             - docker push trying-cd-ci_client:latest "$DOCKER_USERNAME"/trying-cd-ci_client
             - docker images
