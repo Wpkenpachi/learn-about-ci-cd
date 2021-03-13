@@ -23,4 +23,7 @@ jobs:
         run: heroku container:login
 
       - name: Pushing Images
-        run: echo ${{ secrets.HEROKU_APP }}
+        run: heroku container:push --recursive --app ${{ secrets.HEROKU_APP }}
+
+      - name: Relase Images
+        run: heroku container:release web --app ${{ secrets.HEROKU_APP }}
