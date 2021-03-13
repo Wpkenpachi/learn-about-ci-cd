@@ -3,7 +3,7 @@ const server = require('../../src/app')
 const agent = request.agent(server)
 
 describe('Products Get', () => {
-  it('Sould Return Hello World', () => {
+  it('Sould Return Hello World!', () => {
     agent.get('/')
       .expect(200)
       .end(function (_err, response) {
