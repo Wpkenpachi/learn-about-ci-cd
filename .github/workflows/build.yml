@@ -16,7 +16,9 @@ jobs:
       - name: Running Tests
         run: docker-compose exec -T server sh -c "npm test"
       # heroku test
-      - name: Login to Heroku Container Registry
+      - name: Login to Heroku
         env:
           HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+        run: heroku login
+      - name: Login to Heroku Container Registry
         run: heroku container:login
