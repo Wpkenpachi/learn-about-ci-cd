@@ -6,6 +6,19 @@ agent:
     os_image: ubuntu1804
 
 blocks:
+  # - name: Push Docker image to registry
+  #   task:
+  #     jobs:
+  #       - name: Docker Hub
+  #         commands:
+  #           - checkout
+  #           - echo $DOCKER_PASSWORD | docker login --username "$DOCKER_USERNAME" --password-stdin
+  #           - docker build -t hello:v1 .
+  #           - docker tag hello:v1 "$DOCKER_USERNAME"/hello:v1
+  #           - docker push "$DOCKER_USERNAME"/hello:v1
+  #           - docker pull "$DOCKER_USERNAME"/hello:v1
+  #           - docker images
+
   - name: Building
     task:
       secrets:
@@ -17,13 +30,9 @@ blocks:
             - echo $DOCKER_PASSWORD | docker login --username "$DOCKER_USERNAME" --password-stdin
             - docker-compose build
             - docker tag trying-cd-ci_server:latest "$DOCKER_USERNAME"/trying-cd-ci_server
-            - docker tag trying-cd-ci_server:latest "$DOCKER_USERNAME"/trying-cd-ci_server:$SEMAPHORE_WORKFLOW_ID
             - docker tag trying-cd-ci_client:latest "$DOCKER_USERNAME"/trying-cd-ci_client
-            - docker tag trying-cd-ci_client:latest "$DOCKER_USERNAME"/trying-cd-ci_client:$SEMAPHORE_WORKFLOW_ID
             - docker push ci_server:latest "$DOCKER_USERNAME"/ci_server
-            - docker push ci_server:latest "$DOCKER_USERNAME"/ci_server:$SEMAPHORE_WORKFLOW_ID
             - docker push trying-cd-ci_client:latest "$DOCKER_USERNAME"/trying-cd-ci_client
-            - docker push trying-cd-ci_client:latest "$DOCKER_USERNAME"/trying-cd-ci_client:$SEMAPHORE_WORKFLOW_ID
             - docker images
 
   - name: Run and Test Docker images
