@@ -15,20 +15,3 @@ jobs:
         run: docker ps
       - name: Running Tests
         run: docker-compose exec -T server sh -c "npm test"
-      # heroku test
-      - name: Login to Heroku Container registry
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:login
-
-      - name: Pushing Images
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-          HEROKU_APP: learn-ci-cd
-        run: heroku container:push --recursive --app $HEROKU_APP
-
-      - name: Relase Images
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-          HEROKU_APP: learn-ci-cd
-        run: heroku container:release web --app $HEROKU_APP

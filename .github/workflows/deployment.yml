@@ -20,14 +20,19 @@ jobs:
     needs: build
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
-      - name: Login to Heroku Container Registry
+      - name: Login to Heroku Container registry
         env:
-          HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: heroku container:login
-        # with:
-        #   heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-        #   heroku_app_name: "learn-ci-cd"
-        #   heroku_email: "angelportinari17@gmail.com"
-        #   usedocker: true
-        #   docker_heroku_process_type: web
+
+      - name: Pushing Images
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_APP: learn-ci-cd
+        run: heroku container:push --recursive --app $HEROKU_APP
+
+      - name: Relase Images
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_APP: learn-ci-cd
+        run: heroku container:release web --app $HEROKU_APP
