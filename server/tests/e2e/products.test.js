@@ -3,13 +3,20 @@ const server = require('../../src/app')
 const agent = request.agent(server)
 
 describe('Products Get', () => {
+  it('Sould Return Hello World', () => {
+    agent.get('/')
+      .expect(200)
+      .end(function (_err, response) {
+        const { text } = response
+        expect(text).toEqual('Hello!')
+      })
+  });
   it('Should return an array of products', () => {
     agent.get('/products')
       .expect(200)
       .expect('Content-Type', /json/)
-      .end(function (err, response) {
-        const { body, statusCode } = response
-        expect(statusCode).toBe(200)
+      .end(function (_err, response) {
+        const { body } = response
         expect(body).toBeInstanceOf(Array)
         expect(body.length).toBeGreaterThan(0)
         body.forEach(item => {
@@ -22,13 +29,11 @@ describe('Products Get', () => {
   })
 
   it('Should return a product', async () => {
-
     agent.get('/products/get')
       .expect(200)
       .expect('Content-Type', /json/)
-      .end(function (err, response) {
-        const { body, statusCode } = response
-        expect(statusCode).toBe(200)
+      .end(function (_err, response) {
+        const { body } = response
         expect(body).toBeInstanceOf(Object)
         expect(body).toHaveProperty('id')
         expect(body).toHaveProperty('title')

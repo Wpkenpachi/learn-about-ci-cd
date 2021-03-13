@@ -9,6 +9,7 @@ const faker = require('faker')
 const productMaxNumber = 10
 
 server.get('/', (_req, res) => {
+  // Root path
   res.send('Hello!')
 })
 
