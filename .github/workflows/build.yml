@@ -16,9 +16,14 @@ jobs:
       - name: Running Tests
         run: docker-compose exec -T server sh -c "npm test"
       # heroku test
-      - uses: akhileshns/heroku-deploy@v3.12.12
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "learn-ci-cd" #Must be unique in Heroku
-          heroku_email: "angelportinari17@gmail.com"
-          usedocker: true
+      - name: Login to Heroku Container registry
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_APP: ${{ secrets.HEROKU_APP }}
+        run: heroku container:login
+
+      - name: Pushing Images
+        run: echo angelportinari17@gmail.com | heroku container:push --recursive --app ${{ secrets.HEROKU_APP }}
+
+      - name: Relase Images
+        run: echo angelportinari17@gmail.com | heroku container:release web --app ${{ secrets.HEROKU_APP }}
