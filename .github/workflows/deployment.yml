@@ -1,0 +1,29 @@
+name: Heroku Deployment
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build Docker Images
+        run: docker-compose up -d
+      - name: ShowContainers
+        run: docker ps
+      - name: Running Tests
+        run: docker-compose exec -T server sh -c "npm test"
+
+  deployment:
+    needs: build
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Deploy to Heroku
+        uses: AkhileshNS/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "learn-ci-cd"
+          heroku_email: "angelportinari17@gmail.com"
+          usedocker: true

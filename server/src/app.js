@@ -8,6 +8,10 @@ const faker = require('faker')
 
 const productMaxNumber = 10
 
+server.get('/', (_req, res) => {
+  res.send('Hello!')
+})
+
 server.get('/products', (_req, res) => {
   const count = (_req.query['count'] && _req.query['count'] <= productMaxNumber) || productMaxNumber
   const productEmptyArr = Array.from({ length: Math.floor(Math.random() * count) })

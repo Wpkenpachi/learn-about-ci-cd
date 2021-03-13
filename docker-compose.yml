@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  # Server Api
+  server:
+    image: cd-ci-server
+    container_name: server-ci-cd
+    build:
+      context: server/
+      dockerfile: Dockerfile.web
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"
+    expose:
+      - "${SERVER_PORT}"
+    env_file:
+      - .env
+    entrypoint: npm start
