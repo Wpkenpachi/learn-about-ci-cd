@@ -1,10 +1,9 @@
 const axios = require('axios')
 
-const { PORT } = process.env
+const { SERVER_PORT: PORT, SERVER_HOST: BASE_HOST } = process.env
 
 const client = axios.create({
-  baseUrl: 'http://localhost',
-  port: PORT || 3000
+  baseURL: `http://${BASE_HOST}:${PORT}`
 })
 
 client.get('/products')

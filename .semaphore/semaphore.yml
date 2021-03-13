@@ -8,54 +8,15 @@ agent:
     os_image: ubuntu1804
 
 blocks:
-  - name: Install Dependencies
+  - name: Building Client Docker os_image
     task:
-      env_vars:
-        - name: NODE_ENV
-          value: test
-        - name: PORT
-          value: "8181"
-        - name: CI
-          value: "true"
-
-      prologue:
-        commands:
-          - checkout
-          - nvm use v14.16.0
-          - node --version
-          - npm --version
-
       jobs:
-        - name: client npm install and cache
+        - name: Docker Hub
           commands:
-            - cd client
-            - cache restore client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),client-node-modules-$SEMAPHORE_GIT_BRANCH,client-node-modules-master
-            - npm install
-            - cache store client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json) node_modules
-
-        - name: server npm install and cache
-          commands:
-            - cd server
-            - cache restore server-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),server-node-modules-$SEMAPHORE_GIT_BRANCH,server-node-modules-master
-            - npm install
-            - cache store server-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json) node_modules
-
-  - name: Lint
-    task:
-      env_vars:
-        - name: NODE_ENV
-          value: test
-        - name: CI
-          value: "true"
-      prologue:
-        commands:
-          - checkout
-          - nvm use v14.16.0
-          - node --version
-          - npm --version
-      jobs:
-        - name: Server Tests
-          commands:
-            - cd server
-            - cache restore server-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),server-node-modules-$SEMAPHORE_GIT_BRANCH,server-node-modules-master
-            - npm test
+            - checkout
+            - echo $DOCKER_PASSWORD | docker login --username "$DOCKER_USERNAME" --password-stdin
+            - docker build -t client-ci-cd:v0.1 ./client/
+            - docker tag client-ci-cd:v0.1 "$DOCKER_USERNAME"/client-ci-cd:v0.1
+            - docker push "$DOCKER_USERNAME"/client-ci-cd:v0.1
+            - docker pull "$DOCKER_USERNAME"/client-ci-cd:v0.1
+            - docker images
