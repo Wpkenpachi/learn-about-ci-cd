@@ -1,6 +1,6 @@
 version: v1.0
 
-name: Javascript Client and Api Server
+name: learn About Ci/Cd Repository
 
 agent:
   machine:
