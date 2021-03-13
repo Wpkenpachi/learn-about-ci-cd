@@ -22,7 +22,13 @@ jobs:
         run: heroku container:login
 
       - name: Pushing Images
-        run: echo angelportinari17@gmail.com | heroku container:push --recursive --app learn-ci-cd
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_APP: learn-ci-cd
+        run: heroku container:push --recursive --app $HEROKU_APP
 
       - name: Relase Images
-        run: echo angelportinari17@gmail.com | heroku container:release web --app learn-ci-cd
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_APP: learn-ci-cd
+        run: heroku container:release web --app $HEROKU_APP
