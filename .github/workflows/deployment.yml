@@ -27,3 +27,5 @@ jobs:
           heroku_app_name: "learn-ci-cd"
           heroku_email: "angelportinari17@gmail.com"
           usedocker: true
+          justlogin: true
+          docker_heroku_process_type: web
