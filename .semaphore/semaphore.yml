@@ -16,10 +16,14 @@ blocks:
             - checkout
             - echo $DOCKER_PASSWORD | docker login --username "$DOCKER_USERNAME" --password-stdin
             - docker-compose build
-            - docker tag cicdrepository:latest "$DOCKER_USERNAME"/cicdrepository
-            - docker tag cicdrepository:latest "$DOCKER_USERNAME"/cicdrepository:$SEMAPHORE_WORKFLOW_ID
-            - docker push cicdrepository:latest "$DOCKER_USERNAME"/cicdrepository
-            - docker push cicdrepository:latest "$DOCKER_USERNAME"/cicdrepository:$SEMAPHORE_WORKFLOW_ID
+            - docker tag trying-cd-ci_server:latest "$DOCKER_USERNAME"/trying-cd-ci_server
+            - docker tag trying-cd-ci_server:latest "$DOCKER_USERNAME"/trying-cd-ci_server:$SEMAPHORE_WORKFLOW_ID
+            - docker tag trying-cd-ci_client:latest "$DOCKER_USERNAME"/trying-cd-ci_client
+            - docker tag trying-cd-ci_client:latest "$DOCKER_USERNAME"/trying-cd-ci_client:$SEMAPHORE_WORKFLOW_ID
+            - docker push ci_server:latest "$DOCKER_USERNAME"/ci_server
+            - docker push ci_server:latest "$DOCKER_USERNAME"/ci_server:$SEMAPHORE_WORKFLOW_ID
+            - docker push trying-cd-ci_client:latest "$DOCKER_USERNAME"/trying-cd-ci_client
+            - docker push trying-cd-ci_client:latest "$DOCKER_USERNAME"/trying-cd-ci_client:$SEMAPHORE_WORKFLOW_ID
             - docker images
 
   - name: Run and Test Docker images
@@ -30,7 +34,8 @@ blocks:
         commands:
           - echo $DOCKER_PASSWORD | docker login --username "$DOCKER_USERNAME" --password-stdin
           - checkout
-          - docker pull "$DOCKER_USERNAME"/cicdrepository
+          - docker pull "$DOCKER_USERNAME"/trying-cd-ci_server:latest
+          - docker pull "$DOCKER_USERNAME"/trying-cd-ci_client:latest
           - docker-compose up -d
       jobs:
         - name: Check Running images
