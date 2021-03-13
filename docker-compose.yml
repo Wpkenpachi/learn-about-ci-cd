@@ -3,6 +3,7 @@ version: "3.9"
 services:
   # Server Api
   server:
+    container_name: server-ci-cd
     build:
       context: server/
       dockerfile: Dockerfile
@@ -18,6 +19,7 @@ services:
 
   # Client Api
   client:
+    container_name: client-ci-cd
     depends_on:
       - server
     build:
