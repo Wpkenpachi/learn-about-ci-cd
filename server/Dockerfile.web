@@ -4,6 +4,7 @@ WORKDIR /usr/app
 
 COPY package*.json ./
 
+RUN npm install jest@26.6.3 -g
 RUN npm install
 
 COPY . .
