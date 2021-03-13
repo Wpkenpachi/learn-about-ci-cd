@@ -20,13 +20,8 @@ jobs:
     needs: build
     runs-on: ubuntu-20.04
     steps:
-      - name: Deploy to Heroku
-<<<<<<< HEAD
       - uses: actions/checkout@v2
       - uses: AkhileshNS/heroku-deploy@v3.12.12
-=======
-        uses: AkhileshNS/heroku-deploy@v3.12.12
->>>>>>> main
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "learn-ci-cd"
