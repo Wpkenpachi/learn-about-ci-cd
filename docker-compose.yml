@@ -7,7 +7,7 @@ services:
     container_name: server-ci-cd
     build:
       context: server/
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.web
     ports:
       - "${SERVER_PORT}:${SERVER_PORT}"
     expose:
