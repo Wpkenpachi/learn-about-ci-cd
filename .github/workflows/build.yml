@@ -19,11 +19,11 @@ jobs:
       - name: Login to Heroku Container registry
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-          HEROKU_APP: ${{ secrets.HEROKU_APP }}
+          HEROKU_APP: learn-ci-cd
         run: heroku container:login
 
       - name: Pushing Images
-        run: echo angelportinari17@gmail.com | heroku container:push --recursive --app ${{ secrets.HEROKU_APP }}
+        run: echo angelportinari17@gmail.com | heroku container:push --recursive --app ${{ env.HEROKU_APP }}
 
       - name: Relase Images
-        run: echo angelportinari17@gmail.com | heroku container:release web --app ${{ secrets.HEROKU_APP }}
+        run: echo angelportinari17@gmail.com | heroku container:release web --app ${{ env.HEROKU_APP }}
