@@ -3,6 +3,7 @@ version: "3.9"
 services:
   # Server Api
   server:
+    image: cd-ci-server
     container_name: server-ci-cd
     build:
       context: server/
@@ -19,6 +20,7 @@ services:
 
   # Client Api
   client:
+    image: cd-ci-client
     container_name: client-ci-cd
     depends_on:
       - server
