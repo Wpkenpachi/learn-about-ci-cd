@@ -23,7 +23,7 @@ jobs:
         run: heroku container:login
 
       - name: Pushing Images
-        run: echo angelportinari17@gmail.com | heroku container:push --recursive --app ${{ env.HEROKU_APP }}
+        run: echo angelportinari17@gmail.com | heroku container:push --recursive --app env.HEROKU_APP
 
       - name: Relase Images
-        run: echo angelportinari17@gmail.com | heroku container:release web --app ${{ env.HEROKU_APP }}
+        run: echo angelportinari17@gmail.com | heroku container:release web --app env.HEROKU_APP
