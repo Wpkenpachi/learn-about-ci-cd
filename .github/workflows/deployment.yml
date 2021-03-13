@@ -27,8 +27,4 @@ jobs:
           heroku_app_name: "learn-ci-cd"
           heroku_email: "angelportinari17@gmail.com"
           usedocker: true
-<<<<<<< HEAD
-=======
-          justlogin: true
->>>>>>> main
           docker_heroku_process_type: web
